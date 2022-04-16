@@ -6,7 +6,7 @@ import com.rascal.bankaccountservice.controller.transaction.validator.currency.C
 import com.rascal.bankaccountservice.controller.transaction.validator.transactiontype.TransactionTypeConstraint;
 import javax.validation.constraints.NotBlank;
 
-@AmountConstraint(field = "amount", dependency = "currency", message = "aaa")
+@AmountConstraint(field = "amount", dependency = "currency")
 public record TransactionRequest(
     @NotBlank String accountNumber,
     Double amount,

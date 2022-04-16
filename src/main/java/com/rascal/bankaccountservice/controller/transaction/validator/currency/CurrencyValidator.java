@@ -4,8 +4,7 @@ import java.util.Currency;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
-public class CurrencyValidator implements
-    ConstraintValidator<CurrencyConstraint, String> {
+public class CurrencyValidator implements ConstraintValidator<CurrencyConstraint, String> {
 
   @Override
   public void initialize(CurrencyConstraint constraintAnnotation) {

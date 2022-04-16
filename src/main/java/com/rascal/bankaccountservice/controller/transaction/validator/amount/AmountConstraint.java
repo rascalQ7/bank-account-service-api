@@ -12,7 +12,7 @@ import javax.validation.Payload;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface AmountConstraint {
 
-  String message() default "Fields values don't match!";
+  String message() default "amount: must follow ISO 4217";
 
   String field();
 

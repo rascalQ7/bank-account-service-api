@@ -1,5 +1,7 @@
 package com.rascal.bankaccountservice.controller.transaction;
 
+import com.rascal.bankaccountservice.controller.transaction.validator.ValidatorUtils;
+import com.rascal.bankaccountservice.domain.transaction.Transaction;
 import com.rascal.bankaccountservice.service.transaction.TransactionServiceFactory;
 import java.util.Objects;
 import javax.validation.Valid;
@@ -23,17 +25,13 @@ public class TransactionController {
 
   @PostMapping("/book")
   public ResponseEntity<Void> bookTransaction(
-      @RequestBody @Valid TransactionRequest transaction,
+      @RequestBody @Valid TransactionRequest request,
       BindingResult bindingResult
   ) {
-    if (bindingResult.hasErrors()) {
-      bindingResult.getFieldErrors().forEach(
-          e -> System.out.println(e.getField() + ": " + e.getDefaultMessage())
-      );
-    }
-//    System.out.println(transactionServiceFactory.getService(TransactionType.DEBIT).getClass());
-//    System.out.println(transactionServiceFactory.getService(TransactionType.CREDIT).getClass());
-//    System.out.println(transaction);
+    ValidatorUtils.handleRequestValidationResult(bindingResult);
+    var transaction = Transaction.of(request);
+    var transactionService = transactionServiceFactory.getService(transaction.transactionType());
+    transactionService.book(transaction);
     return ResponseEntity.ok().build();
   }
 }
