@@ -7,12 +7,12 @@ import javax.persistence.Id;
 @Entity
 public class AccountEntity {
 
-  @Id
-  private int id;
   String accountNumber;
   int currency;
   Double balance;
   AccountStatus accountStatus;
+  @Id
+  private int id;
 
   public String getAccountNumber() {
     return accountNumber;

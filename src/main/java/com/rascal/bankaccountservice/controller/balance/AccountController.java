@@ -2,7 +2,6 @@ package com.rascal.bankaccountservice.controller.balance;
 
 import com.rascal.bankaccountservice.domain.account.AccountState;
 import com.rascal.bankaccountservice.service.account.AccountService;
-import com.rascal.bankaccountservice.service.transaction.TransactionServiceFactory;
 import java.util.Objects;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping(path = "/account", produces = MediaType.APPLICATION_JSON_VALUE)
 public class AccountController {
+
   private final AccountService accountService;
 
   public AccountController(AccountService accountService) {

@@ -5,7 +5,7 @@ import com.rascal.bankaccountservice.domain.transaction.TransactionType;
 import org.springframework.stereotype.Service;
 
 @Service
-public class DebitTransactionService implements TransactionService{
+public class DebitTransactionService implements TransactionService {
 
   @Override
   public TransactionType getType() {
