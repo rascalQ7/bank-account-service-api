@@ -18,7 +18,7 @@ public record AccountState(
             .findAny()
             .get(),
         accountEntity.getBalance(),
-        accountEntity.getAccountStatus()
+        AccountStatus.valueOf(accountEntity.getAccountStatus())
     );
   }
 }

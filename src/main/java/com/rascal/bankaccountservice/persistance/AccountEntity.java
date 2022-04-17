@@ -1,24 +1,26 @@
 package com.rascal.bankaccountservice.persistance;
 
-import com.rascal.bankaccountservice.domain.account.AccountStatus;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
 public class AccountEntity {
 
   String accountNumber;
-  int currency;
+  Integer currency;
   Double balance;
-  AccountStatus accountStatus;
+  String accountStatus;
   @Id
-  private int id;
+  @GeneratedValue(strategy = GenerationType.SEQUENCE)
+  private Long id;
 
   public String getAccountNumber() {
     return accountNumber;
   }
 
-  public int getCurrency() {
+  public Integer getCurrency() {
     return currency;
   }
 
@@ -26,7 +28,7 @@ public class AccountEntity {
     return balance;
   }
 
-  public AccountStatus getAccountStatus() {
+  public String getAccountStatus() {
     return accountStatus;
   }
 }

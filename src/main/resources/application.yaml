@@ -7,4 +7,6 @@ spring:
     password: admin
     driverClassName: org.h2.Driver
   jpa:
+    hibernate.ddl-auto: update
+    defer-datasource-initialization: true
     spring.jpa.database-platform: org.hibernate.dialect.H2Dialect
