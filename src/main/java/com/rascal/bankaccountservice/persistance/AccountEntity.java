@@ -29,11 +29,11 @@ public class AccountEntity {
     return balance;
   }
 
-  public String getAccountStatus() {
-    return accountStatus;
-  }
-
   public void setBalance(Double balance) {
     this.balance = balance;
+  }
+
+  public String getAccountStatus() {
+    return accountStatus;
   }
 }
