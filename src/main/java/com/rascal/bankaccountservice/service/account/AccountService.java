@@ -1,20 +1,19 @@
 package com.rascal.bankaccountservice.service.account;
 
-import com.rascal.bankaccountservice.domain.account.AccountState;
+import com.rascal.bankaccountservice.controller.account.AccountStateResponse;
+import com.rascal.bankaccountservice.exception.NotFoundException;
 import com.rascal.bankaccountservice.persistance.AccountRepository;
 import org.springframework.stereotype.Service;
 
 @Service
-public class AccountService {
+public record AccountService(AccountRepository accountRepository) {
 
-  private final AccountRepository accountRepository;
-
-  public AccountService(AccountRepository accountRepository) {
-    this.accountRepository = accountRepository;
+  public AccountStateResponse getState(String accountNumber) {
+    return AccountStateResponse.of(
+        this.accountRepository.findByAccountNumber(accountNumber)
+            .orElseThrow(
+                () -> new NotFoundException("Account " + accountNumber + " does not exist")
+            )
+    );
   }
-
-  public AccountState getState(String accountNumber) {
-    return AccountState.of(this.accountRepository.findByAccountNumber(accountNumber));
-  }
-
 }

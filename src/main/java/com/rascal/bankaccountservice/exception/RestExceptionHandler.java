@@ -20,4 +20,16 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     var errorResponse = new ErrorResponse(e.getMessage());
     return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
   }
+
+  @ExceptionHandler(NotFoundException.class)
+  public final ResponseEntity<ErrorResponse> handleNotFoundException(Exception e) {
+    var errorResponse = new ErrorResponse(e.getMessage());
+    return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
+  }
+
+  @ExceptionHandler(ForbiddenException.class)
+  public final ResponseEntity<ErrorResponse> handleForbiddenException(Exception e) {
+    var errorResponse = new ErrorResponse(e.getMessage());
+    return new ResponseEntity<>(errorResponse, HttpStatus.FORBIDDEN);
+  }
 }

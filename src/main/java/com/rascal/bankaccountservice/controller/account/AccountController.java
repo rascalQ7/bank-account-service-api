@@ -1,6 +1,5 @@
-package com.rascal.bankaccountservice.controller.balance;
+package com.rascal.bankaccountservice.controller.account;
 
-import com.rascal.bankaccountservice.domain.account.AccountState;
 import com.rascal.bankaccountservice.service.account.AccountService;
 import java.util.Objects;
 import org.springframework.http.MediaType;
@@ -20,10 +19,9 @@ public class AccountController {
     this.accountService = Objects.requireNonNull(accountService);
   }
 
-
   @GetMapping("/state/{accountNumber}")
   @ResponseBody
-  public AccountState getAccountStateByNumber(@PathVariable String accountNumber) {
+  public AccountStateResponse getAccountStateByNumber(@PathVariable String accountNumber) {
     return accountService.getState(accountNumber);
   }
 }

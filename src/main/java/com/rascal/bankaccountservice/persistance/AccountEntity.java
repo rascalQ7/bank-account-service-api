@@ -12,6 +12,7 @@ public class AccountEntity {
   Integer currency;
   Double balance;
   String accountStatus;
+
   @Id
   @GeneratedValue(strategy = GenerationType.SEQUENCE)
   private Long id;
@@ -30,5 +31,9 @@ public class AccountEntity {
 
   public String getAccountStatus() {
     return accountStatus;
+  }
+
+  public void setBalance(Double balance) {
+    this.balance = balance;
   }
 }

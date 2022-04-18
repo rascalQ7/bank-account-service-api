@@ -21,6 +21,7 @@ public class AmountValidator implements ConstraintValidator<AmountConstraint, Ob
   public boolean isValid(Object value, ConstraintValidatorContext context) {
     int maxDecimalPlaces;
     int actualDecimalPlaces;
+    Double amount;
 
     try {
       String dependencyValue = (String) new BeanWrapperImpl(value).getPropertyValue(dependency);
@@ -31,11 +32,11 @@ public class AmountValidator implements ConstraintValidator<AmountConstraint, Ob
     }
 
     try {
-      Double amount = (Double) new BeanWrapperImpl(value).getPropertyValue(field);
+      amount = (Double) new BeanWrapperImpl(value).getPropertyValue(field);
       actualDecimalPlaces = new BigDecimal(amount.toString()).scale();
     } catch (Exception e) {
       return false;
     }
-    return actualDecimalPlaces <= maxDecimalPlaces;
+    return actualDecimalPlaces <= maxDecimalPlaces && amount > 0;
   }
 }

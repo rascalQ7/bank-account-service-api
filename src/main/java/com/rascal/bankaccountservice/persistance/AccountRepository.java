@@ -1,10 +1,16 @@
 package com.rascal.bankaccountservice.persistance;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import java.util.Optional;
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface AccountRepository extends JpaRepository<AccountEntity, Integer> {
+public interface AccountRepository extends CrudRepository<AccountEntity, Long> {
 
-  AccountEntity findByAccountNumber(String accountNumber);
+  Optional<AccountEntity> findByAccountNumber(String accountNumber);
+
+  Optional<AccountEntity> findByAccountNumberAndAccountStatus(
+      String accountNumber,
+      String accountStatus
+  );
 }
