@@ -4,10 +4,11 @@ import com.rascal.bankaccountservice.domain.transaction.Transaction;
 import com.rascal.bankaccountservice.persistance.AccountEntity;
 
 public abstract class TransactionValidator {
-  public TransactionValidator nextProcessor;
 
-  protected TransactionValidator(TransactionValidator nextProcessor) {
-    this.nextProcessor = nextProcessor;
+  public TransactionValidator nextValidator;
+
+  protected TransactionValidator(TransactionValidator nextValidator) {
+    this.nextValidator = nextValidator;
   }
 
   public abstract void validate(Transaction transaction, AccountEntity accountEntity);

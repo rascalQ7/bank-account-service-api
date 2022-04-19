@@ -13,10 +13,10 @@ public record Transaction(
 
   public static Transaction of(TransactionRequest transactionRequest) {
     return new Transaction(
-        transactionRequest.accountNumber(),
-        transactionRequest.amount(),
-        Currency.getInstance(transactionRequest.currency()),
-        TransactionType.valueOf(transactionRequest.transactionType())
+        transactionRequest.getAccountNumber(),
+        transactionRequest.getAmount(),
+        Currency.getInstance(transactionRequest.getCurrency()),
+        TransactionType.valueOf(transactionRequest.getTransactionType())
     );
   }
 }

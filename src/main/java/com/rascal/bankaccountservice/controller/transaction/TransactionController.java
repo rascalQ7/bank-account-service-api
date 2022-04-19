@@ -1,10 +1,11 @@
 package com.rascal.bankaccountservice.controller.transaction;
 
-import com.rascal.bankaccountservice.controller.transaction.validator.ValidatorUtils;
+import com.rascal.bankaccountservice.controller.transaction.validator.RequestValidatorHandler;
 import com.rascal.bankaccountservice.domain.transaction.Transaction;
 import com.rascal.bankaccountservice.service.transaction.TransactionServiceFactory;
 import java.util.Objects;
 import javax.validation.Valid;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -18,20 +19,32 @@ import org.springframework.web.bind.annotation.RestController;
 public class TransactionController {
 
   private final TransactionServiceFactory transactionServiceFactory;
+  private final RequestValidatorHandler requestValidatorHandler;
 
-  public TransactionController(TransactionServiceFactory transactionServiceFactory) {
+  public TransactionController(
+      TransactionServiceFactory transactionServiceFactory,
+      RequestValidatorHandler requestValidatorHandler
+  ) {
     this.transactionServiceFactory = Objects.requireNonNull(transactionServiceFactory);
+    this.requestValidatorHandler = Objects.requireNonNull(requestValidatorHandler);
   }
 
+  /**
+   * Validates transaction request, selects booking service and books transaction
+   *
+   * @param request - transaction data
+   * @param bindingResult - hibernates result of @request validation
+   * @return created status if transaction is booked
+   */
   @PostMapping("/book")
   public ResponseEntity<Void> bookTransaction(
       @RequestBody @Valid TransactionRequest request,
       BindingResult bindingResult
   ) {
-    ValidatorUtils.handleRequestValidationResult(bindingResult);
+    requestValidatorHandler.handle(bindingResult);
     var transaction = Transaction.of(request);
     var transactionService = transactionServiceFactory.getService(transaction.transactionType());
     transactionService.book(transaction);
-    return ResponseEntity.ok().build();
+    return ResponseEntity.status(HttpStatus.CREATED).build();
   }
 }

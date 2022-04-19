@@ -6,8 +6,8 @@ import com.rascal.bankaccountservice.persistance.AccountEntity;
 
 public class CurrencyValidator extends TransactionValidator {
 
-  public CurrencyValidator(TransactionValidator nextProcessor) {
-    super(nextProcessor);
+  public CurrencyValidator(TransactionValidator nextValidator) {
+    super(nextValidator);
   }
 
   @Override
@@ -17,8 +17,8 @@ public class CurrencyValidator extends TransactionValidator {
           "Account does not allow currency " + transaction.currency().getCurrencyCode()
       );
     }
-    if (nextProcessor != null) {
-      nextProcessor.validate(transaction, accountEntity);
+    if (nextValidator != null) {
+      nextValidator.validate(transaction, accountEntity);
     }
   }
 }

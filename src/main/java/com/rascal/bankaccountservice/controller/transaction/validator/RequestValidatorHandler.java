@@ -6,12 +6,12 @@ import java.util.stream.Stream;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.validation.BindingResult;
 
-public class ValidatorUtils {
+public class RequestValidatorHandler {
 
-  private ValidatorUtils() {
+  public RequestValidatorHandler() {
   }
 
-  public static void handleRequestValidationResult(BindingResult bindingResult) {
+  public void handle(BindingResult bindingResult) {
     if (bindingResult.hasErrors()) {
       var requestValidationMessages =
           bindingResult.getGlobalErrors().stream()

@@ -6,8 +6,8 @@ import com.rascal.bankaccountservice.persistance.AccountEntity;
 
 public class SufficientBalanceValidator extends TransactionValidator {
 
-  public SufficientBalanceValidator(TransactionValidator nextProcessor) {
-    super(nextProcessor);
+  public SufficientBalanceValidator(TransactionValidator nextValidator) {
+    super(nextValidator);
   }
 
   @Override
@@ -15,8 +15,8 @@ public class SufficientBalanceValidator extends TransactionValidator {
     if (transaction.amount() > accountEntity.getBalance()) {
       throw new ForbiddenException("Insufficient balance");
     }
-    if (nextProcessor != null) {
-      nextProcessor.validate(transaction, accountEntity);
+    if (nextValidator != null) {
+      nextValidator.validate(transaction, accountEntity);
     }
   }
 }

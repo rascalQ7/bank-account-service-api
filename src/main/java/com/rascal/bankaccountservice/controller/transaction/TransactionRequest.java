@@ -7,12 +7,15 @@ import com.rascal.bankaccountservice.controller.transaction.validator.transactio
 import javax.validation.constraints.NotBlank;
 
 @AmountConstraint(field = "amount", dependency = "currency")
-public record TransactionRequest(
-    @NotBlank String accountNumber,
-    Double amount,
-    @CurrencyConstraint String currency,
-    @TransactionTypeConstraint String transactionType
-) {
+public class TransactionRequest {
+
+  @NotBlank
+  private final String accountNumber;
+  private final Double amount;
+  @CurrencyConstraint
+  private final String currency;
+  @TransactionTypeConstraint
+  private final String transactionType;
 
   @JsonCreator
   public TransactionRequest(
@@ -25,5 +28,21 @@ public record TransactionRequest(
     this.amount = amount;
     this.currency = currency;
     this.transactionType = transactionType;
+  }
+
+  public String getAccountNumber() {
+    return accountNumber;
+  }
+
+  public Double getAmount() {
+    return amount;
+  }
+
+  public String getCurrency() {
+    return currency;
+  }
+
+  public String getTransactionType() {
+    return transactionType;
   }
 }
